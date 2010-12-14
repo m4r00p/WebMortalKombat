@@ -1,8 +1,8 @@
 app.controller.Arena = function (model, view) {
-    app.controller.Arena.superCtor.apply(this, arguments);
+    app.controller.Arena.prototype.super.apply(this, arguments);
 };
 
-app.inherit(
+app.core.Object.extend(
     app.controller.Arena,
     app.controller.Object
 );

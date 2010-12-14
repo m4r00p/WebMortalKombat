@@ -1,8 +1,8 @@
 app.model.Object = function () {
-    app.model.Object.superCtor.apply(this, arguments);
+    app.model.Object.prototype.super.apply(this, arguments);
 };
 
-app.inherit(
+app.core.Object.extend(
     app.model.Object,
-    app.Object
+    app.core.Object
 );

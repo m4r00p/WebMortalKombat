@@ -1,15 +1,14 @@
 app.controller.Object = function (model, view) {
-    app.controller.Object.superCtor.apply(this, arguments);
+    app.controller.Object.prototype.super.apply(this, arguments);
 
-    this.__model = model;
-    this.__view  = view;
+    this._model = model;
+    this._view  = view;
 };
 
-app.inherit(
+app.core.Object.extend(
     app.controller.Object,
-    app.Object
+    app.core.Object
 );
 
-app.controller.Object.prototype.update = function () {
-    this.__view.update();
-};
+app.core.Object.mixin(app.controller.Object, {
+});
