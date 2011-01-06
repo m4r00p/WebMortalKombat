@@ -1,5 +1,5 @@
 app.controller.Arena = function (model, view) {
-    app.controller.Arena.prototype.super.apply(this, arguments);
+    app.controller.Arena.prototype.uper.apply(this, arguments);
 };
 
 app.core.Object.extend(

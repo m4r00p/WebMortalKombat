@@ -1,5 +1,5 @@
 app.controller.Character = function (model, view) {
-    app.controller.Character.prototype.super.apply(this, arguments);
+    app.controller.Character.prototype.uper.apply(this, arguments);
 
     //this.__model.addListener("changeCharacter", this.__onChangeCharacter, this, " prefix ");
 };
@@ -16,12 +16,16 @@ app.core.Object.mixin(app.controller.Character, {
         if (event.getType() == "keydown") {
             switch (event.getCode()) {
                 case app.event.Object.LEFT:
-                    model.setState('backward');
+                    model.setState('walk');
+                    model.setDirection('left');
+                    model.setX(model.getX() - 3);
                     break; 
                 case app.event.Object.UP:
                     break; 
                 case app.event.Object.RIGHT:
                     model.setState('walk');
+                    model.setDirection('right');
+                    model.setX(model.getX() + 3);
                     break; 
                 case app.event.Object.DOWN:
                     break; 

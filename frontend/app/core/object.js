@@ -9,7 +9,7 @@ app.core.Object.extend = function (childConstructor, parentConstructor) {
 
     childConstructor.prototype = Object.create(parentConstructor.prototype);
     childConstructor.prototype.constructor = childConstructor;
-    childConstructor.prototype.super = parentConstructor;
+    childConstructor.prototype.uper = parentConstructor;
 
     return childConstructor;
 };
@@ -60,8 +60,11 @@ app.core.Object.prototype = {
 
     existEvent: function (name) {
         if (!this.__event[name]) {
-            throw new Error("Event not defined: [" + name + "]");
+            //console.warn("Event not defined: [" + name + "]");
+            return false;
         }
+
+        return true;
     },
 
     fireEvent: function (name) {
@@ -77,10 +80,10 @@ app.core.Object.prototype = {
     fireDataEvent: function (name, data) {
         var i, len, event = this.__event[name];
 
-        this.existEvent(name);
-
-        for (i = 0, len = event.length; i < len; i += 1) {
-            event[i](data);
+        if (this.existEvent(name)) {
+            for (i = 0, len = event.length; i < len; i += 1) {
+                event[i](data);
+            } 
         }
     }
 };

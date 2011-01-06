@@ -1,5 +1,5 @@
 app.view.Object = function (model) {
-    app.view.Object.prototype.super.apply(this, arguments);
+    app.view.Object.prototype.uper.apply(this, arguments);
     this._model = model;
 };
 
@@ -19,5 +19,11 @@ app.core.Object.mixin(app.view.Object, {
 		link.href = url;
         
         doc.head.appendChild(link);
+    },
+    removeClass: function (el, name) {
+       $(el).removeClass(name); 
+    },
+    addClass: function (el, name) {
+       $(el).addClass(name); 
     }
 });

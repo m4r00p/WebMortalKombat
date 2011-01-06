@@ -1,2 +1,2 @@
-    var game = new app.controller.Game();
-    game.run();
+var game = new app.controller.Game();
+game.run();

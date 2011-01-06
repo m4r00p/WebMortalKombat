@@ -1,5 +1,5 @@
 app.event.Keyboard = function (keyboardEvent) {
-    app.event.Keyboard.prototype.super.apply(this, arguments);
+    app.event.Keyboard.prototype.uper.apply(this, arguments);
 
     if (!(keyboardEvent instanceof KeyboardEvent)) {
         throw new Error("keyboardEvent shloud be instance of KeyboardEvent"); 

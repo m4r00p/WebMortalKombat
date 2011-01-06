@@ -1,5 +1,5 @@
 app.controller.Object = function (model, view) {
-    app.controller.Object.prototype.super.apply(this, arguments);
+    app.controller.Object.prototype.uper.apply(this, arguments);
 
     this._model = model;
     this._view  = view;

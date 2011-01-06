@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>Index</title>
+    
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+</head>
+<body>
+    <div id="result">
+    </div>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script> 
+    <script> 
+     var element = document.getElementById("result");
+     var socket  = new io.Socket(null); 
+     var start   = Date.now();
+     var iteration = 0;
+     var sum = 0;
+
+     socket.on('connect', function(event){ console.log('connect'); });
+
+     socket.on('message', function(data){
+        sum += Date.now () - start; 
+        if (iteration < 10) {
+            console.log(iteration);
+            send();
+        } else {
+            console.log(sum / 10);
+        }
+        iteration += 1;
+     }); 
+     socket.on('disconnect', function(event){ console.log('disconnect'); });
+     socket.connect();
+
+     var send = function () {
+         start = Date.now();
+         socket.send(null);
+     };
+     send();
+    </script> 
+    
+</body>
+</html>
