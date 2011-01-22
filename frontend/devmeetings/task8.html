@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <title>Task 8</title>
+        
+    </head>
+    <body>
+        <script type="text/javascript" charset="utf-8">
+
+if (!Function.prototype.bind) { // ECMA5
+    Function.prototype.bind = function (ctx /* ... */) {
+        var that  = this;
+        var slice = Array.prototype.slice;
+        var args  = slice.call(arguments, 1);
+
+        var fn = function () {
+            return that.apply(ctx, args.concat(slice.call(arguments)));
+        };
+
+        return fn;
+    };
+}
+
+if (!Object.create) { // ECMA5
+    Object.create = function (o) {
+        var F = function () {};
+        F.prototype = o;
+        return new F();
+    };
+}
+
+var inherit = function (C, P) {
+        C.prototype = Object.create(P.prototype);
+        C.uper = P.prototype;
+        C.prototype.constructor = C;
+};
+
+var mixin = function (targetConstructor /* ...mixins... */) {
+    var i, member, mixin,
+    mixins = Array.prototype.slice.call(arguments, 1),
+    len    = mixins.length,
+    targetPrototype = targetConstructor.prototype;
+
+    if (len < 1) {
+        throw new Error("There should be at least 1 element in mixins ");
+    }
+
+    for (i = 0; i < len; i += 1) {
+        mixin = mixins[i];
+
+        for (member in mixin) {
+            if (targetPrototype[member])  {
+                console.warn('Overrite memeber "' + member + '" which currently exists in prototype.');
+            }
+            targetPrototype[member] = mixin[member]; 
+        }
+    }
+
+    return targetConstructor;
+};
+
+var Observable = function () {
+    this._eventMap = {};
+};
+Observable.prototype = {
+    _a: null,
+    _b: null,
+    _eventMap: null,
+
+    addListener: function (name, fn, ctx /* args */) {
+        var event = this._eventMap,
+        ctxArgs = Array.prototype.slice.call(arguments, 2);
+
+        if (!event[name]) {
+            event[name] = []; 
+        }
+
+        event[name].push(Function.prototype.bind.apply(fn, ctxArgs));
+    },
+
+    existEvent: function (name) {
+        if (!this._eventMap[name]) {
+            console.warn("Event not defined: [" + name + "]");
+            return false;
+        }
+
+        return true;
+    },
+
+    fireEvent: function (name) {
+        var i, len, event = this._eventMap[name];
+
+        if (this.existEvent(name)) {
+            for (i = 0, len = event.length; i < len; i += 1) {
+                event[i]();
+            }
+        }
+    },
+
+    fireDataEvent: function (name, data) {
+        var i, len, event = this._eventMap[name];
+
+        if (this.existEvent(name)) {
+            for (i = 0, len = event.length; i < len; i += 1) {
+                event[i](data);
+            } 
+        }
+    }
+}; 
+
+
+/**
+ *  CONTROLLER
+ */
+
+var Controller = function (model) {
+    this._model = model;
+};
+Controller.prototype = {
+    mockServerMessage: function (color) {
+        this._model.setColor(color);
+    },
+    run: function () {
+        setTimeout(this.mockServerMessage.bind(this, "#999"), 100);
+        setTimeout(this.mockServerMessage.bind(this, "#999"), 100);
+        setTimeout(this.mockServerMessage.bind(this, "#999"), 100);
+        setTimeout(this.mockServerMessage.bind(this, "#999"), 200);
+        setTimeout(this.mockServerMessage.bind(this, "#f0f"), 300);
+        setTimeout(this.mockServerMessage.bind(this, "#f0f"), 300);
+        setTimeout(this.mockServerMessage.bind(this, "#0f0"), 400);
+        setTimeout(this.mockServerMessage.bind(this, "#0f0"), 400);
+    }
+};
+
+/**
+ *  VIEW
+ */
+
+var View = function (model) {
+    model.addListener("changeColor", this._onChangeColor, this);
+    this.appendElement();
+};
+View.prototype = {
+    _element: null,
+    appendElement: function () {
+        this._element = document.createElement("div");
+        this._element.style.cssText = "width: 100px; height: 100px;";
+        document.body.appendChild(this._element);
+    },
+    _onChangeColor: function (data) {
+        console.log("ChangeColor: " + data[0]);
+        this._element.style.backgroundColor = data[0];
+    }
+};
+
+/**
+ *  MODEL
+ */
+
+var Model = function () {
+    Observable.apply(this, arguments);
+    this._color = "#000";
+};
+inherit(Model, Observable);
+mixin(Model, {
+    _color: null,
+    setColor: function (value) {
+        //TODO
+    }
+});
+
+var model      = new Model();
+var view       = new View(model);
+var controller = new Controller(model);
+controller.run();
+
+// GOAL
+// ChangeColor: #999
+// ChangeColor: #f0f
+// ChangeColor: #0f0
+
+
+        </script>
+    </body>
+

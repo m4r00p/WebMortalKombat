@@ -53,7 +53,7 @@ app.core.Object.mixin(app.view.character.Object, {
         }
 
         if (this._loadedState.indexOf(data[0]) === -1) {
-            this.loadStylesheet('css/' + fileName + '.css?' + Date.now());
+            this.loadStylesheet('css/' + fileName + '.css');
             this._loadedState.push(data[0]);
         } 
 

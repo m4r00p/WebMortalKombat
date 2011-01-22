@@ -70,10 +70,10 @@ app.core.Object.prototype = {
     fireEvent: function (name) {
         var i, len, event = this.__event[name];
 
-        this.existEvent(name);
-
-        for (i = 0, len = event.length; i < len; i += 1) {
-            event[i]();
+        if (this.existEvent(name)) {
+            for (i = 0, len = event.length; i < len; i += 1) {
+                event[i]();
+            }
         }
     },
 
