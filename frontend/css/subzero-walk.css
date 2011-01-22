@@ -23,7 +23,7 @@
 
 @-webkit-keyframes 'subzero-walk-linear-key' {
     0% { background-position: 6px 0;  }
-    12.49% { background-position: 6px 0; }
+    11.49% { background-position: 6px 0; }
     12.50% { background-position: -95px 0; }
     24.99% { background-position: -95px 0; }
     25.00% { background-position: -196px 0; }
@@ -37,7 +37,7 @@
     75.00% { background-position: -613px 0; }
     87.49% { background-position: -613px 0; }
     87.50% { background-position: -714px 0; }
-    99.98% { background-position: -714px 0; }
+    99.99% { background-position: -714px 0; }
     100.00% { background-position: 6px 0; }
 }
 

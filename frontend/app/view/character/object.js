@@ -12,9 +12,9 @@ app.core.Object.extend(
     app.view.Object
 );
 
-app.core.Object.mixin(app.view.character.Object, {
-    _loadedState: null,
+app.view.character.Object.loadedState = null;
 
+app.core.Object.mixin(app.view.character.Object, {
     _calculateDistance: function (x1, y1, x2, y2) {
         return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));  
     },
@@ -48,17 +48,20 @@ app.core.Object.mixin(app.view.character.Object, {
         prevFileName  = this._model.getPrevFileName(),
         element       = this.element;
 
-        if (!this._loadedState) {
-            this._loadedState = [];
+        if (!app.view.character.Object.loadedState) {
+            app.view.character.Object.loadedState = [];
         }
 
-        if (this._loadedState.indexOf(data[0]) === -1) {
+        console.log(app.view.character.Object.loadedState,
+            app.view.character.Object.loadedState.indexOf(data[0])
+        );
+        if (app.view.character.Object.loadedState.indexOf(data[0]) === -1) {
             this.loadStylesheet('css/' + fileName + '.css');
-            this._loadedState.push(data[0]);
+            app.view.character.Object.loadedState.push(data[0]);
         } 
 
-        this.removeClass(element.firstChild, prevFileName + " " + prevFileName + "-step");
-        this.addClass(element.firstChild, fileName + " " + fileName + "-step");
+        this.removeClass(element.firstChild, prevFileName + " " + prevFileName + "-linear");
+        this.addClass(element.firstChild, fileName + " " + fileName + "-linear");
     },
 
     _onChangeX: function (data) {
