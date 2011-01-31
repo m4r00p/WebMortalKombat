@@ -23,7 +23,7 @@
             var Source2 = function () {};
             Source2.prototype.c = function () {};
 
-            mixin(Target, Source1, Source1);
+            mixin(Target, Source1, Source2);
 
             var t = new Target();
             console.log(typeof t.b == "function");

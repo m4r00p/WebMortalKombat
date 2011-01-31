@@ -15,6 +15,8 @@ app.core.Object.extend(
 app.view.character.Object.loadedState = null;
 
 app.core.Object.mixin(app.view.character.Object, {
+    __transitionInProgress: false,
+
     _calculateDistance: function (x1, y1, x2, y2) {
         return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));  
     },
@@ -76,9 +78,9 @@ app.core.Object.mixin(app.view.character.Object, {
         var n = parseInt(this._model.getY(), 10);
         //var m = parseInt(style.left, 10);
         //var n = parseInt(style.top, 10);
-        var duration  = this._calculateDuration(m, n, x, y) + "s";
+        //var duration  = this._calculateDuration(m, n, x, y) + "s";
 
-        style.webkitTransitionDuration = duration; 
+        //style.webkitTransitionDuration = duration; 
 
         style.left = x + "px"; 
     },
@@ -95,9 +97,9 @@ app.core.Object.mixin(app.view.character.Object, {
         var n = parseInt(this._model.getY(), 10);
         //var m = parseInt(style.left, 10);
         //var n = parseInt(style.top, 10);
-        var duration  = this._calculateDuration(m, n, x, y) + "s";
+        //var duration  = this._calculateDuration(m, n, x, y) + "s";
 
-        style.webkitTransitionDuration = duration; 
+        //style.webkitTransitionDuration = duration; 
         style.top  = y + "px"; 
     },
 
@@ -120,6 +122,6 @@ app.core.Object.mixin(app.view.character.Object, {
 
         model.setState('stance');
 
-        doc.getElementById('mate').appendChild(outer);
+        doc.body.firstChild.appendChild(outer);
     }
 });
