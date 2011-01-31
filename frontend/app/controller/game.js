@@ -18,6 +18,7 @@ app.core.Object.mixin(app.controller.Game, {
     __arena: null,
 
     __characterController: null,
+    __characterModel: null,
 
     __characterModelMap: null,
     __characterViewMap: null,
@@ -111,7 +112,7 @@ app.core.Object.mixin(app.controller.Game, {
 
         if (data.sessionId == this.__sessionId) {
             this.__characterController = controller;
-            model.addListener("change", this.__onChange, this);
+            this.__characterModel      = model;
         }
     }, 
 
@@ -144,12 +145,15 @@ app.core.Object.mixin(app.controller.Game, {
     _onKeyDown: function (event) {
         if (this.__characterController) {
             this.__characterController.dispatch(new app.event.Keyboard(event)); 
+            this.__onChange(this.__characterModel.getData());
         }
     },
 
     _onKeyUp: function (event) {
         if (this.__characterController) {
             this.__characterController.dispatch(new app.event.Keyboard(event)); 
+            this.__onChange(this.__characterModel.getData());
+            
         }
     },
 

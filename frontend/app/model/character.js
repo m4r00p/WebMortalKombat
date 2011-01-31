@@ -14,6 +14,15 @@ app.core.Object.extend(
 
 app.core.Object.mixin(app.model.Character, {
 
+    getData: function () {
+        return  {
+            direction: this._direction, 
+            x: this._x, 
+            y: this._y, 
+            state: this._state 
+        };
+    },
+
     __onChange: function () {
         this.fireDataEvent("change", {
             direction: this._direction, 

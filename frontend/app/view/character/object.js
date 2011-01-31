@@ -54,9 +54,6 @@ app.core.Object.mixin(app.view.character.Object, {
             app.view.character.Object.loadedState = [];
         }
 
-        console.log(app.view.character.Object.loadedState,
-            app.view.character.Object.loadedState.indexOf(data[0])
-        );
         if (app.view.character.Object.loadedState.indexOf(data[0]) === -1) {
             this.loadStylesheet('css/' + fileName + '.css');
             app.view.character.Object.loadedState.push(data[0]);
