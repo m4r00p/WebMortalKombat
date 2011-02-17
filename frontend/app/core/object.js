@@ -1,8 +1,48 @@
+var app = app || {};
+app.core = app.core || {};
+
 app.core.Object = function () {
     if (!(this instanceof arguments.callee)) {
         throw new Error("This is constructor! Use new key word!!!"); 
     }
     this.__event = {};
+};
+
+app.core.Object.define = function (name, definition) {
+    if (!name) {
+        throw new Error("You should define name"); 
+    }
+
+    var map         = name.split(".").slice(1);
+    var namespace   = app;
+    var constructor = map.pop();
+
+    for (var i = 0, len = map.length; i < len; i++) {
+      namespace = namespace[map[i]] = namespace[map[i]] || {};
+    }
+
+    namespace[constructor] = definition.constructor;
+
+    if (definition.extend) {
+        app.core.Object.extend(
+            namespace[constructor],
+            definition.extend
+        );
+    }
+
+    if (definition.member) {
+        app.core.Object.mixin(
+            namespace[constructor],
+            definition.member
+        );
+    }
+
+    if (definition.static) {
+        app.core.Object.static(
+            namespace[constructor],
+            definition.static
+        );
+    }
 };
 
 app.core.Object.extend = function (childConstructor, parentConstructor) {
@@ -38,6 +78,29 @@ app.core.Object.mixin = function (targetConstructor /* ...mixins... */) {
     return targetConstructor;
 };
 
+app.core.Object.static = function (targetConstructor /* ...mixins... */) {
+    var i, member, static,
+    statics = Array.prototype.slice.call(arguments, 1),
+    len     = statics.length;
+
+    if (len < 1) {
+        throw new Error("There should be at least 1 element in mixins ");
+    }
+
+    for (i = 0; i < len; i += 1) {
+        static = statics[i];
+
+        for (member in static) {
+            if (targetConstructor[member])  {
+                console.warn('Overrite memeber "' + member + '" which currently exists in prototype.');
+            }
+            targetConstructor[member] = static[member]; 
+        }
+    }
+
+    return targetConstructor;
+};
+
 app.core.Object.prototype = {
     getDocument: function () {
         return document; 
@@ -60,7 +123,6 @@ app.core.Object.prototype = {
 
     existEvent: function (name) {
         if (!this.__event[name]) {
-            //console.warn("Event not defined: [" + name + "]");
             return false;
         }
 

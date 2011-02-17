@@ -1,8 +1,11 @@
-app.controller.Arena = function (model, view) {
-    app.controller.Arena.prototype.uper.apply(this, arguments);
-};
-
-app.core.Object.extend(
-    app.controller.Arena,
-    app.controller.Object
-);
+app.core.Object.define("app.controller.Arena", {
+    extend: app.controller.Object,
+    constructor: function (model, view) {
+        arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
+    },
+    static: {},
+    member: {
+        _model: null,
+        _view: null
+    }
+});

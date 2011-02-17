@@ -1,8 +1,9 @@
-app.model.Arena = function () {
-    app.model.Arena.prototype.uper.apply(this, arguments);
-};
+app.core.Object.define("app.model.Arena", {
+    extend: app.model.Object,
+    constructor: function () {
+        arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
+    },
+    static: {},
+    member: {}
+});
 
-app.core.Object.extend(
-    app.model.Arena,
-    app.model.Object
-);

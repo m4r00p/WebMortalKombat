@@ -1,14 +1,14 @@
-app.controller.Object = function (model, view) {
-    app.controller.Object.prototype.uper.apply(this, arguments);
+app.core.Object.define("app.controller.Object", {
+    extend: app.core.Object,
+    constructor: function (model, view) {
+        arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
 
-    this._model = model;
-    this._view  = view;
-};
-
-app.core.Object.extend(
-    app.controller.Object,
-    app.core.Object
-);
-
-app.core.Object.mixin(app.controller.Object, {
+        this._model = model;
+        this._view  = view;
+    },
+    static: {},
+    member: {
+        _model: null,
+        _view: null
+    }
 });
