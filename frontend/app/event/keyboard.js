@@ -29,15 +29,16 @@ app.core.Object.define("app.event.Keyboard", {
             var time   = +new Date();
             var last   = queue[queue.length - 1];
 
-            if (!last || !last[2] || (time - last[2] > 50)) {
-                this._push(null);
-                last = null;
-            };
-
-            if (last != this._last) {
-                this._last = last;
-                this.fireDataEvent("press", this._queue);
+            if (last && last[2] && (time - last[2] < 500)) {
+                if (last != this._last) {
+                    this._last = last;
+                    this.fireDataEvent("press", this._queue);
+                }
             }
+            else {
+                this._queue = [];
+            }
+
         },
 
         _push: function (item) {

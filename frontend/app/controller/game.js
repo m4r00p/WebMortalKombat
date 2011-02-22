@@ -34,7 +34,7 @@ app.core.Object.define("app.controller.Game", {
 
         _initSocket: function () {
             var that    = this; 
-            var socket  = new io.Socket(); 
+            var socket  = new io.Socket("localhost", {port: 3000}); 
             this.__socket = socket;
 
             socket.on('connect', function (event) {

@@ -19,7 +19,7 @@ app.core.Object.define("app.model.Character", {
             };
         },
 
-        __onChange: function () {
+        __onChange: function (asdf, qwer) {
             this.fireDataEvent("change", this.getData()); 
         },
 

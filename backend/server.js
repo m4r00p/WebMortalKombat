@@ -54,9 +54,12 @@ socket.on('connection', function(client) {
                             entry.hp -= 10;
 
                             setTimeout(function (entr) {
+                                var obj = {};
+                                obj[entr.sessionId] = entr;
+
                                 entr.state = "stance";         
-                                client.broadcast({gameObject: gameObject}); 
-                            }.bind(client, entry), 1000);
+                                client.broadcast({gameObject: obj}); 
+                            }.bind(client, entry), 900);
                         }
                     } 
                 }
@@ -65,7 +68,11 @@ socket.on('connection', function(client) {
                client.send({gameObject: gameObject, sessionId: client.sessionId}); 
                break;
         }
-        client.broadcast({gameObject: gameObject}); 
+
+        var obj = {};
+        obj[gameObject.sessionId] = gameObject;
+
+        client.broadcast({gameObject: obj}); 
 
     }); 
 

@@ -14,6 +14,8 @@ app.core.Object.define("app.controller.Character", {
             var code  = last && last[1]; 
             var time  = +new Date();
 
+            console.log(queue);
+
             if (this._freezeTime > time) {
                 return;
             }
@@ -22,26 +24,32 @@ app.core.Object.define("app.controller.Character", {
                 case app.event.Object.LEFT:
                     model.setState('walk');
                     model.setDirection('left');
-                    model.setX(model.getX() - 3);
+                    model.setX(model.getX() - 4);
+
+                    this._setTimeoutStance();
                     break; 
                 case app.event.Object.UP:
                     break; 
                 case app.event.Object.RIGHT:
                     model.setState('walk');
                     model.setDirection('right');
-                    model.setX(model.getX() + 3);
+                    model.setX(model.getX() + 4);
+                    
+                    this._setTimeoutStance();
                     break; 
                 case app.event.Object.DOWN:
                     break; 
                 case app.event.Object.HIGH_PUNCH:
                 case app.event.Object.LOW_PUNCH:
                     model.setState('punch');
-                    this._freezeTime1000();
+
+                    this._freeze(1000);
                     break; 
                 case app.event.Object.HIGH_KICK:
                 case app.event.Object.LOW_KICK:
                     model.setState('kick');
-                    this._freezeTime1000();
+
+                    this._freeze(1000);
                     break; 
                 default:
                     model.setState('stance');
@@ -49,13 +57,21 @@ app.core.Object.define("app.controller.Character", {
             }
         },
 
-        _freezeTime1000: function () {
+        _setTimeoutStance: function () {
             if (this._timeout) {
                 clearTimeout(this._timeout);
             }
 
-            this._freezeTime = +new Date() + 1000;
-            this._timeout = setTimeout(this.dispatch.bind(this), 1010);
+            this._timeout = setTimeout(this.dispatch.bind(this), 100);
+        },
+
+        _freeze: function (time) {
+            if (this._timeout) {
+                clearTimeout(this._timeout);
+            }
+
+            this._freezeTime = +new Date() + time;
+            this._timeout = setTimeout(this.dispatch.bind(this), time + 10);
         }
 
         //idle: function () {},
