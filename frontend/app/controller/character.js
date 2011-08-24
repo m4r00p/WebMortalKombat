@@ -3,8 +3,8 @@ app.core.Object.define("app.controller.Character", {
     constructor: function (model, view) {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
     },
-    static: {},
-    member: {
+    statics: {},
+    members: {
         _freezeTime: null,
         _timeout: null,
 
@@ -13,8 +13,6 @@ app.core.Object.define("app.controller.Character", {
             var last  = queue && queue.length && queue[queue.length - 1];
             var code  = last && last[1]; 
             var time  = +new Date();
-
-            console.log(queue);
 
             if (this._freezeTime > time) {
                 return;

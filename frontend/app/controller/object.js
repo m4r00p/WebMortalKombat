@@ -6,8 +6,8 @@ app.core.Object.define("app.controller.Object", {
         this._model = model;
         this._view  = view;
     },
-    static: {},
-    member: {
+    statics: {},
+    members: {
         _model: null,
         _view: null
     }

@@ -6,11 +6,16 @@
     <title>Index</title>
     
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="css/subzero-beinghit.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="css/subzero-kick.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="css/subzero-punch.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="css/subzero-stance.css" type="text/css" media="screen" charset="utf-8">
 </head>
 <body>
-    <script type="text/javascript" charset="utf-8" src="http://localhost:3000/socket.io/socket.io.js"></script> 
+    <!--<input type="text" id="username" /><button id="login">login</button>-->
+
+    <script type="text/javascript" charset="utf-8" src="socket.io/socket.io.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/jquery-1.4.4.js"></script>
-	<script type="text/javascript" charset="utf-8" src="lib/mxhr.js"></script>
 
     <script type="text/javascript" charset="utf-8" src="helper.js"> </script>
     <script type="text/javascript" charset="utf-8" src="app/core/object.js"> </script>
@@ -30,10 +35,10 @@
     <script type="text/javascript" charset="utf-8" src="app/view/object.js"> </script>
     <script type="text/javascript" charset="utf-8" src="app/view/arena.js"> </script>
 
-    <script type="text/javascript" charset="utf-8" src="app/view/character/object.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="app/view/character/subzero.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="app/view/character.js"> </script>
 
-    <script type="text/javascript" charset="utf-8" src="bootstrap.js"> </script>
-    
+    <script type="text/javascript" charset="utf-8">
+        new app.controller.Game().run();
+    </script>
 </body>
 </html>

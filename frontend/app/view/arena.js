@@ -4,8 +4,8 @@ app.core.Object.define("app.view.Arena", {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
         this.append();
     },
-    static: {},
-    member: {
+    statics: {},
+    members: {
         append: function () {
             var doc = this.getDocument(),
             arena   = doc.createElement('div');

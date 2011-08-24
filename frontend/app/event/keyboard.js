@@ -7,8 +7,8 @@ app.core.Object.define("app.event.Keyboard", {
 
         this._init();
     },
-    static: {},
-    member: {
+    statics: {},
+    members: {
         _interval: null,
         _queue: null,
         _last: null,
@@ -22,6 +22,8 @@ app.core.Object.define("app.event.Keyboard", {
 
         _onKeyDown: function (event) {
             this._push(this._map(event));
+            event.stopPropagation();
+            event.preventDefault();
         },
 
         _loop: function () {

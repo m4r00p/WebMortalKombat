@@ -21,15 +21,12 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 .animated {
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite;
-} 
 
-.transition-top-left {
-    /*-webkit-transition: top 2s linear, left 2s linear;*/
-    /*-moz-transition: top 2s linear, left 2s linear;*/
-    /*-o-transition: top 2s linear, left 2s linear;*/
-    /*-ms-transition: top 2s linear, left 2s linear;*/
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
 }
 
 .flip {
     -webkit-transform: scaleX(-1) translate(-135px, 0);
+    -moz-transform: scaleX(-1) translate(-135px, 0);
 }

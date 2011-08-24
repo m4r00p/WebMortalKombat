@@ -1,6 +1,10 @@
 var app = app || {};
 app.core = app.core || {};
 
+if (typeof global !== "undefined") {
+    global.app = app;
+}
+
 app.core.Object = function () {
     if (!(this instanceof arguments.callee)) {
         throw new Error("This is constructor! Use new key word!!!"); 
@@ -23,24 +27,43 @@ app.core.Object.define = function (name, definition) {
 
     namespace[constructor] = definition.constructor;
 
-    if (definition.extend) {
+    // solve dependenties
+//    var require = definition.require;
+//    if (require && require.length) {
+//
+//        if (Object.prototype.toString.apply(require) !== "[object Array]") {
+//           require = [require];
+//        }
+//
+//        app.core.Object.require.apply(
+//            null,
+//            [definition.extend].concat(definition.require)
+//        );
+//
+//    }
+
+    // inherit 
+    var extend = definition.extend;
+    if (extend) {
         app.core.Object.extend(
             namespace[constructor],
-            definition.extend
+            extend 
         );
     }
 
-    if (definition.member) {
+    // add member
+    if (definition.members) {
         app.core.Object.mixin(
             namespace[constructor],
-            definition.member
+            definition.members
         );
     }
 
-    if (definition.static) {
-        app.core.Object.static(
+    // add static
+    if (definition.statics) {
+        app.core.Object.statics(
             namespace[constructor],
-            definition.static
+            definition.statics
         );
     }
 };
@@ -78,7 +101,7 @@ app.core.Object.mixin = function (targetConstructor /* ...mixins... */) {
     return targetConstructor;
 };
 
-app.core.Object.static = function (targetConstructor /* ...mixins... */) {
+app.core.Object.statics = function (targetConstructor /* ...mixins... */) {
     var i, member, static,
     statics = Array.prototype.slice.call(arguments, 1),
     len     = statics.length;
@@ -99,6 +122,44 @@ app.core.Object.static = function (targetConstructor /* ...mixins... */) {
     }
 
     return targetConstructor;
+};
+
+app.core.Object.implements = function (klass, interface) {
+
+  var prototype = klass.prototype;
+
+  for (var key in interface) {
+      if (!prototype[key]) {
+        throw new Error("Interface not fulfill!!!");
+      }
+  }
+
+  return targetConstructor;
+};
+
+// loaded classes
+app.core.Object.loaded  = [];
+app.core.Object.require = function (/* ...classNames... */) {
+    var classes = Array.prototype.slice.call(arguments),
+    len         = classes.length,
+    i, className, path;
+
+    if (len < 1) {
+        throw new Error("There should be at least 1 className ");
+    }
+
+    var require = require || function (path) {
+        $LAB.script(path).wait();
+    };
+
+    for (i = 0; i < len; i++) {
+        className = classes[i];
+        path      = "./" + className.replace(/\./gi, "/").toLowerCase().concat(".js");
+
+        if (app.core.Object.loaded.indexOf(className) != -1) {
+            require(path);
+        }
+    }
 };
 
 app.core.Object.prototype = {

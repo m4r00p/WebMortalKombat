@@ -3,6 +3,6 @@ app.core.Object.define("app.model.Object", {
     constructor: function () {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
     },
-    static: {},
-    member: {}
+    statics: {},
+    members: {}
 });

@@ -3,16 +3,17 @@ app.core.Object.define("app.controller.Game", {
     constructor: function (model, view) {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
 
-        this._initArena();
 
+        this.__gameObject = {};
+        this._initArena();
         this._initSocket();
 
         this.__characterModelMap = {};
         this.__characterViewMap  = {};
         this.__characterControllerMap = {};
     },
-    static: {},
-    member: {
+    statics: {},
+    members: {
         __arena: null,
 
         __characterController: null,
@@ -33,8 +34,8 @@ app.core.Object.define("app.controller.Game", {
         },
 
         _initSocket: function () {
-            var that    = this; 
-            var socket  = new io.Socket("localhost", {port: 3000}); 
+            var that      = this;
+            var socket    = new io.Socket();
             this.__socket = socket;
 
             socket.on('connect', function (event) {
@@ -47,21 +48,28 @@ app.core.Object.define("app.controller.Game", {
                 }
 
                 if (data.gameObject)  {
-                    that._update(data.gameObject); 
+                    that._initGameObject(data.gameObject);
                 }
 
                 if (data.remove) {
-                    that._remove(data.remove); 
+                    that._remove(data.remove);
                 }
-            }); 
 
-            socket.on('disconnect', function (event) {
+                if (data.change) {
+                    that._updateCharacter(data.change);
+                }
+
+                if (data.add) {
+                    that._createCharacter(data.add);
+                }
+            });
+
+            socket.on('disconnect', function () {
                 console.log('disconnect');
             });
 
             socket.connect();
 
-            socket.send({action: "login"});
         },
 
         _initArena: function () {
@@ -72,7 +80,7 @@ app.core.Object.define("app.controller.Game", {
                 arenaView
             );
 
-            this.__arena = arenaController; 
+            this.__arena = arenaController;
         },
 
         _updateModel: function (model, data) {
@@ -86,7 +94,7 @@ app.core.Object.define("app.controller.Game", {
                         model[method](data[property]);
                     }
                     else {
-                        console.warn("There is not such setter on model!!!"); 
+                        console.warn("There is not such setter on model!!!");
                     }
                 }
             }
@@ -99,23 +107,31 @@ app.core.Object.define("app.controller.Game", {
 
         _createCharacter: function (data) {
             var model      = new app.model.Character();
-            var view       = new app.view.character.Subzero(model);
+            var view       = new app.view.Character(model);
             var controller = new app.controller.Character(model, view);
 
             this._updateModel(model, data);
 
-            this.__characterModelMap[data.sessionId]      = model;
+
             this.__characterViewMap[data.sessionId]       = view;
+            this.__characterModelMap[data.sessionId]      = model;
             this.__characterControllerMap[data.sessionId] = controller;
 
             if (data.sessionId == this.__sessionId) {
                 this.__characterController = controller;
-                this.__characterModel      = model;
-                this.__characterModel.addListener('change', this.__onChange.bind(this));
+                model.addListener('change', this.__onChange.bind(this));
+//                setInterval(function () {
+//                    model.setX(model.getX() + 1);
+//                    var data = model.getData();
+//                    data.action = "walk";
+//                    this.__socket.send(data);
+//                }.bind(this),100);
             }
         }, 
 
         _remove: function (sessionId) {
+            console.log("to remove " + sessionId);
+            console.log(this.__characterViewMap);
             this.__characterViewMap[sessionId].remove();
 
             delete this.__characterModelMap[sessionId];
@@ -123,20 +139,12 @@ app.core.Object.define("app.controller.Game", {
             delete this.__characterControllerMap[sessionId];
         },
 
-        _update: function (data) {
+        _initGameObject: function (data) {
             var id;
-            this.__gameObject = data;
 
             for (id in data) {
-                var characterData = data[id]; 
-
                 if (data.hasOwnProperty(id)) {
-                    if (this.__characterModelMap[id]) {
-                        this._updateCharacter(characterData);
-                    }
-                    else {
-                        this._createCharacter(characterData);
-                    }
+                    this._createCharacter(data[id]);
                 }
             }
         },
@@ -152,7 +160,41 @@ app.core.Object.define("app.controller.Game", {
            this._keyboard.addListener("press", this._onKeyboardPress.bind(this));
         },
 
+        _stopPropagation: function (event) {
+           event.stopPropagation();
+        },
+
+        _onClickLogin: function () {
+            var input = this.getDocument().getElementById("username");
+
+            if (input.value) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/login',
+                  data: {username: input.value},
+                  success: this._onLoginSucced,
+                  dataType: 'application/json' 
+                });
+            }
+        },
+
+        _onLoginSucced: function (data) {
+           console.log('data', data) 
+        },
+
+        _input: null,
+
         run: function () {
+//            var input = this.getDocument().getElementById("username");
+//            var login = this.getDocument().getElementById("login");
+//
+//            this._input = input;
+//
+//            input.addEventListener("keydown", this._stopPropagation, false);
+//            input.addEventListener("keyup", this._stopPropagation, false);
+//
+//            login.addEventListener("click", this._onClickLogin.bind(this), false);
+
             this._registerListener();
         }
     }

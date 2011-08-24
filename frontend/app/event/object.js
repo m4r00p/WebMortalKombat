@@ -3,7 +3,7 @@ app.core.Object.define("app.event.Object", {
     constructor: function () {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
     },
-    static: {
+    statics: {
         LEFT  : 1,
         RIGHT : 2,
         UP    : 3,
@@ -14,6 +14,6 @@ app.core.Object.define("app.event.Object", {
         LOW_PUNCH   : 7,
         HIGH_PUNCH  : 8
     },
-    member: {}
+    members: {}
 });
 

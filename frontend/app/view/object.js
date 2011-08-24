@@ -4,8 +4,8 @@ app.core.Object.define("app.view.Object", {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
         this._model = model;
     },
-    static: {},
-    member: {
+    statics: {},
+    members: {
         _model: null,
         loadStylesheet: function (url) {
             var doc = this.getDocument(),

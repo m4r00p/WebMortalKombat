@@ -1,9 +1,22 @@
 .subzero-kick-step {
-    -webkit-animation-name: 'subzero-kick-step-key';
+    -webkit-animation-name: subzero-kick-step-key;
     -webkit-animation-timing-function: step-start;
+    -moz-animation-name: subzero-kick-step-key;
+    -moz-animation-timing-function: step-start;
 }
 
-@-webkit-keyframes 'subzero-kick-step-key' {
+@-webkit-keyframes subzero-kick-step-key {
+    0% { background-position: 0px 0; width: 72px;}
+    12.50% { background-position: -112px 0; width: 72px;}
+    25.00% { background-position: -228px 0; width: 72px;}
+    37.50% { background-position: -350px 0; width: 72px;}
+    50.00% { background-position: -463px 0; width: 72px;}
+    62.50% { background-position: -607px 0; width: 125px; }
+    75.00% { background-position: -782px 0; width: 119px; }
+    87.50% { background-position: -607px 0; width: 125px; }
+    100.00% { background-position: -463px 0; width: 72px;}
+}
+@-moz-keyframes subzero-kick-step-key {
     0% { background-position: 0px 0; width: 72px;}
     12.50% { background-position: -112px 0; width: 72px;}
     25.00% { background-position: -228px 0; width: 72px;}
@@ -55,11 +68,32 @@
 
 
 .subzero-kick-linear {
-    -webkit-animation-name: 'subzero-kick-linear-key';
+    -webkit-animation-name: subzero-kick-linear-key;
     -webkit-animation-timing-function: linear;
+    -moz-animation-name: subzero-kick-linear-key;
+    -moz-animation-timing-function: linear;
 }
 
-@-webkit-keyframes 'subzero-kick-linear-key' {
+@-webkit-keyframes subzero-kick-linear-key {
+    0% { background-position: 0px 0; width: 72px;}
+    12.49% { background-position: 0px 0; width: 72px;}
+    12.50% { background-position: -112px 0; width: 72px;}
+    24.99% { background-position: -112px 0; width: 72px;}
+    25.00% { background-position: -228px 0; width: 72px;}
+    37.49% { background-position: -228px 0; width: 72px;}
+    37.50% { background-position: -350px 0; width: 72px;}
+    49.99% { background-position: -350px 0; width: 72px;}
+    50.00% { background-position: -463px 0; width: 72px;}
+    62.49% { background-position: -463px 0; width: 72px;}
+    62.50% { background-position: -607px 0; width: 125px; }
+    74.99% { background-position: -607px 0; width: 125px; }
+    75.00% { background-position: -782px 0; width: 119px; }
+    87.49% { background-position: -782px 0; width: 119px; }
+    87.50% { background-position: -607px 0; width: 125px; }
+    99.99% { background-position: -607px 0; width: 125px; }
+    100.00% { background-position: -463px 0; width: 72px;}
+}
+@-moz-keyframes subzero-kick-linear-key {
     0% { background-position: 0px 0; width: 72px;}
     12.49% { background-position: 0px 0; width: 72px;}
     12.50% { background-position: -112px 0; width: 72px;}

@@ -3,7 +3,7 @@ app.core.Object.define("app.model.Arena", {
     constructor: function () {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
     },
-    static: {},
-    member: {}
+    statics: {},
+    members: {}
 });
 

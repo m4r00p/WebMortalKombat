@@ -1,49 +1,27 @@
-app.core.Object.define("app.model.Character", {
+app.core.Object.define("app.model.Player", {
     extend: app.model.Object,
     constructor: function () {
         arguments.callee.prototype.uper.apply(this, arguments); //call parent constructor
 
-        this.addListener("changeX", this.__onChange, this);
-        this.addListener("changeY", this.__onChange, this);
-        this.addListener("changeState", this.__onChange, this);
-        this.addListener("changeDirection", this.__onChange, this);
     },
     statics: {},
     members: {
         setData: function (data) {
-            this._direction = data._direction;
-            this._x = data._x;
-            this._y = data._y;
-            this._state = data._state;
+            this._username  = data.username;
+            this._sessionId = data.sessionId;
         },
 
         getData: function () {
             return  {
-                direction: this._direction, 
-                x: this._x, 
-                y: this._y, 
-                state: this._state 
+                username: this.
             };
         },
 
-        __onChange: function () {
+        __onChange: function (asdf, qwer) {
             this.fireDataEvent("change", this.getData()); 
         },
 
-        _name: null,
-
-        _direction: null,
-
-        _state: null,
-        _prevState: null,
-
-        _stateList: ['stance', 'walk', 'backward', 'punch', 'kick', 'beinghit'],
-
-        _x: null,
-        _y: null,
-        
-        _hp: null,
-
+        _username:  null,
         _sessionId: null,
 
         setName: function (newValue) {
