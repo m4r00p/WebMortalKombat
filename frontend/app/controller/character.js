@@ -18,6 +18,8 @@ app.core.Object.define("app.controller.Character", {
                 return;
             }
 
+            if (model.getState() === "beinghit") return;
+
             switch (code) {
                 case app.event.Object.LEFT:
                     model.setState('walk');

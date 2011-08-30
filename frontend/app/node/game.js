@@ -53,7 +53,7 @@ app.core.Object.define("app.node.Game", {
             gameEntry.direction = "right";
             gameEntry.state    = "stance";
             gameEntry.hp       = 100;
-            gameEntry.x        = 10 + Math.random() * 1000;
+            gameEntry.x        = 28 + Math.random() * 500;
             gameEntry.y        = 0;
 
             client.send({gameObject: gameObject, sessionId: client.sessionId});
@@ -63,6 +63,8 @@ app.core.Object.define("app.node.Game", {
         _onClientMessage: function (client, data) {
           var gameObject = this.__gameObject;
           var gameEntry  = gameObject[client.sessionId];
+
+          if (gameEntry.state === "beinghit") return;
 
           switch (data.action) {
             case 'walk':
@@ -75,28 +77,32 @@ app.core.Object.define("app.node.Game", {
               gameEntry.state = data.action;
               break;
             case 'punch':
-            case 'kick':
-              gameEntry.state = data.action;
-              for (var sid in gameObject) {
-                if (gameObject.hasOwnProperty(sid)) {
-                  var entry = gameObject[sid];
+              case 'kick':
+                  gameEntry.state = data.action;
+                  for (var sid in gameObject) {
+                      if (gameObject.hasOwnProperty(sid)) {
+                          var entry = gameObject[sid];
 
-                  if (Math.abs(data.x - entry.x) < 70 && sid != client.sessionId) {
-                    entry.state = "beinghit";
-                    entry.hp -= 10;
+                          var range  = data.action === "kick" ? 85 : 55;
+                          var offset = data.direction === "right" ? 15 : -15;
 
-                    setTimeout(function (entr) {
-                      entr.state = "stance";
-                      client.broadcast({change: entr});
-                      client.send({change: entr});
-                    }.bind(client, entry), 1000);
+                          if (sid != client.sessionId && Math.abs(data.x + offset - entry.x) < range ) {
+                              entry.state = "beinghit";
+                              entry.direction = data.direction === "right" ? "left" : "right";
+                              entry.hp -= 10;
 
-                      client.broadcast({change: entry});
-                      client.send({change: entry});
+                              setTimeout(function (entr) {
+                                  entr.state = "stance";
+                                  client.broadcast({change: entr});
+                                  client.send({change: entr});
+                              }.bind(client, entry), 1000);
+
+                              client.broadcast({change: entry});
+                              client.send({change: entry});
+                          }
+                      }
                   }
-                }
-              }
-              break;
+                  break;
           }
           client.broadcast({change: gameEntry});
         },

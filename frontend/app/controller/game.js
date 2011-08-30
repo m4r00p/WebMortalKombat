@@ -31,6 +31,8 @@ app.core.Object.define("app.controller.Game", {
         __onChange: function (data) {
             data.action = data.state;
             this.__socket.send(data);
+//            console.log("send !");
+//            console.log(data);
         },
 
         _initSocket: function () {
@@ -42,7 +44,9 @@ app.core.Object.define("app.controller.Game", {
                 console.log('connect');
             });
 
+            var counter = 0;
             socket.on('message', function(data){
+                ++counter;
                 if (data.sessionId) {
                     that.__sessionId = data.sessionId;
                 }
@@ -63,6 +67,11 @@ app.core.Object.define("app.controller.Game", {
                     that._createCharacter(data.add);
                 }
             });
+
+            setInterval(function () {
+               console.log("counter: " + counter);
+                counter = 0;
+            }, 1000);
 
             socket.on('disconnect', function () {
                 console.log('disconnect');
@@ -120,12 +129,23 @@ app.core.Object.define("app.controller.Game", {
             if (data.sessionId == this.__sessionId) {
                 this.__characterController = controller;
                 model.addListener('change', this.__onChange.bind(this));
-//                setInterval(function () {
-//                    model.setX(model.getX() + 1);
-//                    var data = model.getData();
-//                    data.action = "walk";
-//                    this.__socket.send(data);
-//                }.bind(this),100);
+                var iter = 0, sign = 1;
+                setInterval(function () {
+                    if (document.getElementById("bot").value) {
+                        iter++;
+                        if (iter > 100) {
+
+                            model.setState("walk");
+                            model.setDirection(model.getDirection() === "right" ? "left" : "right");
+                            iter = 0;
+                            sign *= -1;
+                        }
+                        model.setX(model.getX() + sign * 5);
+                        model.setState("walk");
+
+                        this.__socket.send(model.getData());
+                    }
+                }.bind(this),50);
             }
         }, 
 

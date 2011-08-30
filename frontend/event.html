@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head></head>
+<body>
+<script type="text/javascript">
+(function (d, w) {
+
+    var event = d.createEvent('KeyboardEvent');
+    event.initKeyboardEvent( 'keydown', true, true, w, "a", 0, false, false, false, false);
+    console.log(event)
+//    var event = document.createEvent("UIEvents");
+//event.initUIEvent("keydown", true, true, window, 1);
+//event.keyCode = 115;
+
+
+    setInterval(function () {
+        d.body.dispatchEvent(event);
+    }, 2000);
+
+    d.body.addEventListener("keydown", function (event) {
+       console.log("keydown: " + event.keyCode)
+    });
+}(document, window));
+</script>
+</body>
+</html>

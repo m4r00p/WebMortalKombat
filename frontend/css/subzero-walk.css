@@ -6,26 +6,26 @@
 }
 
 @-webkit-keyframes subzero-walk-step-key {
-    0% { background-position: 6px 0; }
-    12.50% { background-position: -95px 0; }
-    25.00% { background-position: -196px 0; }
-    37.50% { background-position: -297px 0; }
-    50.00% { background-position: -403px 0; }
-    62.50% { background-position: -512px 0; }
-    75.00% { background-position: -613px 0; }
-    87.50% { background-position: -714px 0; }
-    100.00% { background-position: 6px 0; }
+    0% { background-position: 6px 0px; }
+    12.50% { background-position: -95px 0px; }
+    25.00% { background-position: -196px 0px; }
+    37.50% { background-position: -297px 0px; }
+    50.00% { background-position: -403px 0px; }
+    62.50% { background-position: -512px 0px; }
+    75.00% { background-position: -613px 0px; }
+    87.50% { background-position: -714px 0px; }
+    100.00% { background-position: 6px 0px; }
 }
 @-moz-keyframes subzero-walk-step-key {
-    0% { background-position: 6px 0; }
-    12.50% { background-position: -95px 0; }
-    25.00% { background-position: -196px 0; }
-    37.50% { background-position: -297px 0; }
-    50.00% { background-position: -403px 0; }
-    62.50% { background-position: -512px 0; }
-    75.00% { background-position: -613px 0; }
-    87.50% { background-position: -714px 0; }
-    100.00% { background-position: 6px 0; }
+    0% { background-position: 6px 0px; }
+    12.50% { background-position: -95px 0px; }
+    25.00% { background-position: -196px 0px; }
+    37.50% { background-position: -297px 0px; }
+    50.00% { background-position: -403px 0px; }
+    62.50% { background-position: -512px 0px; }
+    75.00% { background-position: -613px 0px; }
+    87.50% { background-position: -714px 0px; }
+    100.00% { background-position: 6px 0px; }
 }
 
 
@@ -37,42 +37,42 @@
 }
 
 @-webkit-keyframes subzero-walk-linear-key {
-    0% { background-position: 6px 0;  }
-    11.49% { background-position: 6px 0; }
-    12.50% { background-position: -95px 0; }
-    24.99% { background-position: -95px 0; }
-    25.00% { background-position: -196px 0; }
-    37.49% { background-position: -196px 0; }
-    37.50% { background-position: -297px 0; }
-    49.99% { background-position: -297px 0; }
-    50.00% { background-position: -403px 0; }
-    62.49% { background-position: -403px 0; }
-    62.50% { background-position: -512px 0; }
-    74.99% { background-position: -512px 0; }
-    75.00% { background-position: -613px 0; }
-    87.49% { background-position: -613px 0; }
-    87.50% { background-position: -714px 0; }
-    99.99% { background-position: -714px 0; }
-    100.00% { background-position: 6px 0; }
+    0% { background-position: -6px 0px;  }
+    11.49% { background-position: -6px 0px; }
+    12.50% { background-position: -95px 0px; }
+    24.99% { background-position: -95px 0px; }
+    25.00% { background-position: -196px 0px; }
+    37.49% { background-position: -196px 0px; }
+    37.50% { background-position: -297px 0px; }
+    49.99% { background-position: -297px 0px; }
+    50.00% { background-position: -403px 0px; }
+    62.49% { background-position: -403px 0px; }
+    62.50% { background-position: -512px 0px; }
+    74.99% { background-position: -512px 0px; }
+    75.00% { background-position: -613px 0px; }
+    87.49% { background-position: -613px 0px; }
+    87.50% { background-position: -714px 0px; }
+    99.99% { background-position: -714px 0px; }
+    100.00% { background-position: -6px 0px; }
 }
 @-moz-keyframes subzero-walk-linear-key {
-    0% { background-position: 6px 0;  }
-    11.49% { background-position: 6px 0; }
-    12.50% { background-position: -95px 0; }
-    24.99% { background-position: -95px 0; }
-    25.00% { background-position: -196px 0; }
-    37.49% { background-position: -196px 0; }
-    37.50% { background-position: -297px 0; }
-    49.99% { background-position: -297px 0; }
-    50.00% { background-position: -403px 0; }
-    62.49% { background-position: -403px 0; }
-    62.50% { background-position: -512px 0; }
-    74.99% { background-position: -512px 0; }
-    75.00% { background-position: -613px 0; }
-    87.49% { background-position: -613px 0; }
-    87.50% { background-position: -714px 0; }
-    99.99% { background-position: -714px 0; }
-    100.00% { background-position: 6px 0; }
+    0% { background-position: -6px 0px;  }
+    11.49% { background-position: -6px 0px; }
+    12.50% { background-position: -95px 0px; }
+    24.99% { background-position: -95px 0px; }
+    25.00% { background-position: -196px 0px; }
+    37.49% { background-position: -196px 0px; }
+    37.50% { background-position: -297px 0px; }
+    49.99% { background-position: -297px 0px; }
+    50.00% { background-position: -403px 0px; }
+    62.49% { background-position: -403px 0px; }
+    62.50% { background-position: -512px 0px; }
+    74.99% { background-position: -512px 0px; }
+    75.00% { background-position: -613px 0px; }
+    87.49% { background-position: -613px 0px; }
+    87.50% { background-position: -714px 0px; }
+    99.99% { background-position: -714px 0px; }
+    100.00% { background-position: -6px 0px; }
 }
 
 .subzero-walk {
